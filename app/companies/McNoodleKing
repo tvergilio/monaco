@@ -1,0 +1,11 @@
+{
+    "name": "McNoodleKing",
+    "address": "200 Beeston Road",
+    "city": "Leeds",
+    "country": "UK",
+    "email": "mcnoodle@king.co.uk",
+    "director": {
+        "forename": "Aidan",
+        "surname": "Curley"
+    }
+}
