@@ -25,3 +25,8 @@ companyCatApp.config(['$routeProvider',
                 redirectTo: '/'
             });
     }]);
+
+function playSound(element, soundfile) {
+    element.mp3 = new Audio(soundfile);
+    element.mp3.play();
+}
