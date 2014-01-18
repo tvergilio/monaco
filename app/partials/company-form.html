@@ -1,0 +1,19 @@
+<div ng-controller>
+    <form novalidate class="simple-form">
+        Name: <input type="text" ng-model="company.name" />
+        Address: <input type="text" ng-model="company.address" /><br />
+        City: <input type="text" ng-model="company.city" /><br />
+        Country: <input type="text" ng-model="company.country" /><br />
+        Telephone: <input type="tel" ng-model="company.phone" /><br />
+        E-mail: <input type="email" ng-model="company.email" /><br />
+        <button ng-click="reset()">RESET</button>
+        <button ng-click="update(company)">SAVE</button>
+    </form>
+    <pre>form = {{company | json}}</pre>
+    <pre>master = {{master | json}}</pre>
+</div>
+<p>This is the partial for view 2.</p>
+<p>
+  Showing of 'interpolate' filter:
+  {{ 'Current version is v%VERSION%.' | interpolate }}
+</p>

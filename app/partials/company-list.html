@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row-fluid">
+            <!--Sidebar content-->
+
+            Search: <input ng-model="query">
+            Sort by:
+            <select ng-model="orderProp">
+                <option value="name">Alphabetical</option>
+                <option value="address">Address</option>
+            </select>
+
+        <div class="modal-body">
+            <!--Body content-->
+            <ul class="companies">
+                <table class="table table-hover stripped">
+                    <tr ng-repeat="company in companies.content | filter:query | orderBy:orderProp">
+                        <td style="vertical-align: top">
+                            <a href="#/companies/{{company.id}}">
+                                {{company.name}}
+                                </a><br>
+                            {{company.address}}<br>
+                            {{company.city}}<br>
+                            {{company.country}}<br>
+                            {{company.phone}}<br>
+                            {{company.email}}
+                        </td>
+                        <td style="vertical-align: top">
+                            Directors:<br>
+                                <span ng-repeat="director in company.directors">
+                                    {{director.forename}} {{director.surname}}<br>
+                                </span>
+                        </td>
+                    </tr>
+                </table>
+            </ul>
+        </div>
+    </div>
+
+</div>

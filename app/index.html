@@ -4,67 +4,44 @@
     <meta charset="utf-8">
     <title>Business Directory</title>
     <link rel="stylesheet" href="css/app.css"/>
-</head>
-<body ng-controller="CompanyListCtrl">
-<ul class="menu">
-    <li><a href="#/view1">view1</a></li>
-    <li><a href="#/view2">view2</a></li>
-</ul>
-
-<div ng-view>
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span2">
-                <!--Sidebar content-->
-
-                Search: <input ng-model="query">
-                Sort by:
-                <select ng-model="orderProp">
-                    <option value="name">Alphabetical</option>
-                    <option value="address">Address</option>
-                </select>
-
-            </div>
-            <div class="span10">
-                <!--Body content-->
-                <ul class="companies">
-                    <table>
-                        <tr ng-repeat="company in companies | filter:query | orderBy:orderProp">
-                            <td style="vertical-align: top">
-                                {{company.name}}<br>
-                                {{company.address}}<br>
-                                {{company.city}}<br>
-                                {{company.country}}<br>
-                                {{company.phone}}<br>
-                                {{company.email}}
-                            </td>
-                            <td style="vertical-align: top">
-                                Directors:<br>
-                                <span ng-repeat="director in company.directors">
-                                    {{director.forename}} {{director.surname}}<br>
-                                </span>
-                            </td>
-                        </tr>
-                    </table>
-
-
-                </ul>
-            </div>
-        </div>
-    </div>
-    <p>JSON: {{companies | json}}</p>
-</div>
-
-<!-- In production use:
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 -->
-<script src="lib/angular/angular.js"></script>
-<script src="lib/angular/angular-route.js"></script>
-<script src="js/app.js"></script>
-<script src="js/services.js"></script>
-<script src="js/controllers.js"></script>
-<script src="js/filters.js"></script>
-<script src="js/directives.js"></script>
-<script src="lib/angular/angular-resource.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-resource.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/directives.js"></script>
+
+</head>
+<body>
+<header class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-inner">
+        <div class="container">
+            <nav>
+                <ul class="nav pull-right">
+                    <li><a href="http://www.google.com">Google</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<div class="center hero-unit">
+    <span class="pull-right"><img src="img/scottie.gif"></span>
+    <a href="#/company-list">
+    <h2>Business Directory</h2>
+    </a>
+    <h4>This is the home page for the Monaco Web Application.</h4>
+</div>
+
+<div class="container">
+    <div ng-view></div>
+</div>
+
 </body>
 </html>
