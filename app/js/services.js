@@ -28,3 +28,17 @@ companyCatServices.factory("CompanyFactory", function ($resource) {
         ]
     );
 });
+
+//Another factory using $resource
+companyCatServices.factory("DirectorFactory", function ($resource) {
+
+    return $resource(
+        "http://ancient-beach-1323.herokuapp.com/webservice/directors/:id",
+        ['id', '@id' ],
+        [
+            "update", {method: "PUT"},
+            "get", {'method': 'GET', 'params': {'id': "@id"}, isArray: true}
+
+        ]
+    );
+});

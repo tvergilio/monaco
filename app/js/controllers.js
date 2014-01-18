@@ -20,3 +20,16 @@ function SecondCtrl($scope, $routeParams, CompanyFactory){
         }
     );
 }]);
+
+//Gets a specific director
+companyCatControllers.controller('DirectorController', ['$scope', '$routeParams', 'DirectorFactory',
+    function SecondCtrl($scope, $routeParams, DirectorFactory){
+        var theId = $routeParams.directorID;
+        $scope.theDirector = DirectorFactory.get(
+            {
+                id: theId
+            }
+        );
+
+    }]);
+

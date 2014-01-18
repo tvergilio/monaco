@@ -18,6 +18,9 @@ companyCatApp.config(['$routeProvider',
             when('/companies/:companyID', {
                 templateUrl: 'partials/company-detail.html',
                 controller: 'CompanyController'}).
+            when('/directors/:directorID', {
+                templateUrl: 'partials/director.html',
+                controller: 'DirectorController'}).
             otherwise({
                 redirectTo: '/'
             });
