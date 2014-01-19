@@ -10,13 +10,13 @@ companyCatServices.factory('DataFactory', ['$http',
         var CSRF_TOKEN = '';
 
         function configureCSRF() {
-            $http.get('http://ancient-beach-1323.herokuapp.com/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
+            $http.get('http://localhost:3000/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
                 CSRF_TOKEN = data.csrf;
             });
         }
 
         var companies = {content: null};
-        $http.get('http://ancient-beach-1323.herokuapp.com/webservice/companies').success(function (data) {
+        $http.get('http://localhost:3000/webservice/companies').success(function (data) {
             companies.content = data;
         });
         return companies;
@@ -25,11 +25,11 @@ companyCatServices.factory('DataFactory', ['$http',
 //Factory using $resource
 companyCatServices.factory("CompanyFactory", ['$http',
     function ($http) {
-        var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/companies';
+        var baseUrl = 'http://localhost:3000/webservice/companies';
         var CSRF_TOKEN = '';
 
         function configureCSRF() {
-            $http.get('http://ancient-beach-1323.herokuapp.com/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
+            $http.get('http://localhost:3000/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
                 CSRF_TOKEN = data.csrf;
             });
         }
@@ -50,7 +50,7 @@ companyCatServices.factory("CompanyFactory", ['$http',
                 return company;
             },
             save: function (id, company) {
-                configureCSRF();
+
                 if (id === undefined) {
                     //POST
                     var url = baseUrl;
@@ -66,7 +66,6 @@ companyCatServices.factory("CompanyFactory", ['$http',
 
                 } else {
                     //PUT
-                    configureCSRF();
                     var putData = JSON.stringify(company) + '&authenticity_token=' + CSRF_TOKEN;
                     var url = baseUrl + '/' + id;
                     return $http.put(url, putData);
