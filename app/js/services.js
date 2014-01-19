@@ -10,13 +10,13 @@ companyCatServices.factory('DataFactory', ['$http',
         var CSRF_TOKEN = '';
 
         function configureCSRF() {
-            $http.get('http://localhost:3000/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
+            $http.get('http://ancient-beach-1323.herokuapp.com/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
                 CSRF_TOKEN = data.csrf;
             });
         }
 
         var companies = {content: null};
-        $http.get('http://localhost:3000/webservice/companies').success(function (data) {
+        $http.get('http://ancient-beach-1323.herokuapp.com/webservice/companies').success(function (data) {
             companies.content = data;
         });
         return companies;
@@ -29,7 +29,7 @@ companyCatServices.factory("CompanyFactory", ['$http',
         var CSRF_TOKEN = '';
 
         function configureCSRF() {
-            $http.get('http://localhost:3000/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
+            $http.get('http://ancient-beach-1323.herokuapp.com/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
                 CSRF_TOKEN = data.csrf;
             });
         }

@@ -34,7 +34,7 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
 
         $scope.addCompany = function (company) {
                 CompanyFactory.save(theId, company);
-                window.history.back();
+                //window.history.back();
         }
 
 
