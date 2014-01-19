@@ -1,13 +1,13 @@
 <div class="container-fluid">
     <div class="modal-body">
-        <h2>{{theCompany.name}}</h2>
+        <h2>{{theCompany.content.name}}</h2>
 
         <p>
-        <h4>Address: {{theCompany.address}}</h4><br>
-        <h4>City: {{theCompany.city}}</h4><br>
-        <h4>Country: {{theCompany.country}}</h4><br>
-        <h4>Telephone: {{theCompany.phone}}</h4><br>
-        <h4>E-mail: {{theCompany.email}}</h4>
+        <h4>Address: {{theCompany.content.address}}</h4><br>
+        <h4>City: {{theCompany.content.city}}</h4><br>
+        <h4>Country: {{theCompany.content.country}}</h4><br>
+        <h4>Telephone: {{theCompany.content.phone}}</h4><br>
+        <h4>E-mail: {{theCompany.content.email}}</h4>
 
         <br>
 
@@ -15,7 +15,7 @@
             <p>
             <h3>Directors:</h3>
             </p>
-            <li ng-repeat="director in theCompany.directors">
+            <li ng-repeat="director in theCompany.content.directors">
                 <h4><a href="#/directors/{{director.id}}">
                     {{director.forename}}&nbsp;{{director.surname}}
                 </a></h4>
