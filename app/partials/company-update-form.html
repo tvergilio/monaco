@@ -1,0 +1,22 @@
+<div class='modal-header'>
+    <h3>{{theCompany.content.name}}</h3>
+</div>
+<form>
+    <fieldset>
+        <div class='modal-body'>
+            <label>Address</label>
+            <input type='text' ng-model="formCompany.address" placeholder="{{theCompany.content.address}}"/>
+            <label>City</label>
+            <input type='text' ng-model="formCompany.city" placeholder="{{theCompany.content.city}}"/>
+            <label>Country</label>
+            <input type='text' ng-model="formCompany.country" placeholder="{{theCompany.content.country}}"/>
+            <label>Telephone</label>
+            <input type='tel' ng-model="formCompany.phone" placeholder="{{theCompany.content.phone}}"/>
+            <label>E-Mail</label>
+            <input type='email' ng-model="formCompany.email" placeholder="{{theCompany.content.email}}"/>
+        </div>
+        <div class='modal-footer'>
+            <button type='submit' class="btn btn-primary" data-dismiss="modal" ng-click="addCompany(formCompany)">Save</button>
+        </div>
+    </fieldset>
+</form>

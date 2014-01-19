@@ -10,6 +10,6 @@ retrieves a specific company from the Padrino server.
 
 Implemented partial templates, controllers and factories.
 
-TODO: Implement POST, PUT and DELETE methods.
+Implemented POST, PUT and DELETE methods.
 
 You can access the application here: http://monaco-ancient-beach.herokuapp.com/app/index.html

@@ -9,6 +9,16 @@
                 <option value="address">Address</option>
             </select>
 
+        <form method="link" action="#/companyForm">
+            <button class="btn" ng-click="submit" data-toggle="modal">
+                Add Company
+            </button>
+        </form>
+        <button class="btn" onClick="window.location.reload()">
+            Reload
+        </button>
+
+
         <div class="modal-body">
             <!--Body content-->
             <ul class="companies">
@@ -29,6 +39,16 @@
                                 <span ng-repeat="director in company.directors">
                                     {{director.forename}} {{director.surname}}<br>
                                 </span>
+                        </td>
+                        <td>
+                            <a href="#/edit/{{company.id}}">
+                                <button role='button' class='btn'>
+                                    Edit
+                                </button>
+                            </a>
+                                <button ng-click="deleteCompany(company.id)" role='button' class='btn'>
+                                    Delete
+                                </button>
                         </td>
                     </tr>
                 </table>
