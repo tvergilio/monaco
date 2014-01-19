@@ -25,7 +25,7 @@ companyCatServices.factory('DataFactory', ['$http',
 //Factory using $resource
 companyCatServices.factory("CompanyFactory", ['$http',
     function ($http) {
-        var baseUrl = 'http://localhost:3000/webservice/companies';
+        var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/companies';
         var CSRF_TOKEN = '';
 
         function configureCSRF() {
