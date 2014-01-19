@@ -50,6 +50,7 @@ companyCatServices.factory("CompanyFactory", ['$http',
                 return company;
             },
             save: function (id, company) {
+                configureCSRF();
                 if (id === undefined) {
                     //POST
                     var url = baseUrl;
@@ -76,6 +77,7 @@ companyCatServices.factory("CompanyFactory", ['$http',
                 return $http.get(baseUrl);
             },
             delete: function (companyID) {
+                configureCSRF();
                 return $http.delete(baseUrl + '/' + companyID);
             }
         };
