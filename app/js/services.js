@@ -23,8 +23,8 @@ companyCatServices.factory('DataFactory', ['$http',
     }]);
 
 //Factory using $resource
-companyCatServices.factory("CompanyFactory", ['$http',
-    function ($http) {
+companyCatServices.factory("CompanyFactory", ['$http','$location',
+    function ($http, $location) {
         var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/companies';
         var CSRF_TOKEN = '';
 
@@ -42,8 +42,9 @@ companyCatServices.factory("CompanyFactory", ['$http',
                 }
                 var company = {content: null};
                 $http({method: 'get', url: baseUrl + '/' + companyID, cache: false})
-                    .success(function (data) {
+                    .success(function (data, status, headers, config) {
                         company.content = data;
+
                     }).error(function (data, status, headers, config) {
                         // Handle the error
                     });
@@ -62,7 +63,11 @@ companyCatServices.factory("CompanyFactory", ['$http',
                         headers: {
                             'HTTP_X_CSRF_TOKEN': CSRF_TOKEN
                         }
-                    });
+                    }).success(function (data, status, headers, config) {
+
+                        }).error(function (data, status, headers, config) {
+
+                        });
 
                 } else {
                     //PUT
@@ -77,7 +82,11 @@ companyCatServices.factory("CompanyFactory", ['$http',
             },
             delete: function (companyID) {
                 configureCSRF();
-                return $http.delete(baseUrl + '/' + companyID);
+                return $http.delete(baseUrl + '/' + companyID).success(function (data, status, headers, config) {
+
+                }).error(function (data, status, headers, config) {
+
+                    });
             }
         };
     }]);
