@@ -23,7 +23,7 @@ companyCatServices.factory('DataFactory', ['$http',
     }]);
 
 //Factory using $resource
-companyCatServices.factory("CompanyFactory", ['$http','$location',
+companyCatServices.factory("CompanyFactory", ['$http', '$location',
     function ($http, $location) {
         var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/companies';
         var CSRF_TOKEN = '';
@@ -64,16 +64,19 @@ companyCatServices.factory("CompanyFactory", ['$http','$location',
                             'HTTP_X_CSRF_TOKEN': CSRF_TOKEN
                         }
                     }).success(function (data, status, headers, config) {
-
-                        }).error(function (data, status, headers, config) {
-
+                        })
+                        .error(function (data, status, headers, config) {
                         });
 
                 } else {
                     //PUT
                     var putData = JSON.stringify(company) + '&authenticity_token=' + CSRF_TOKEN;
                     var url = baseUrl + '/' + id;
-                    return $http.put(url, putData);
+                    return $http.put(url, putData)
+                        .success(function (data, status, headers, config) {
+                        })
+                        .error(function (data, status, headers, config) {
+                        });
                 }
 
             },
@@ -82,10 +85,10 @@ companyCatServices.factory("CompanyFactory", ['$http','$location',
             },
             delete: function (companyID) {
                 configureCSRF();
-                return $http.delete(baseUrl + '/' + companyID).success(function (data, status, headers, config) {
-
-                }).error(function (data, status, headers, config) {
-
+                return $http.delete(baseUrl + '/' + companyID)
+                    .success(function (data, status, headers, config) {
+                    })
+                    .error(function (data, status, headers, config) {
                     });
             }
         };
