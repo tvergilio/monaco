@@ -3,33 +3,25 @@
 /* Services */
 
 var companyCatServices = angular.module('companyCatServices', ['ngResource']);
+var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/';
+    //'http://localhost:3000/webservice';
 
-//Factory using $http
 companyCatServices.factory('DataFactory', ['$http',
     function ($http) {
-        var CSRF_TOKEN = '';
-
-        function configureCSRF() {
-            $http.get('http://ancient-beach-1323.herokuapp.com/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
-                CSRF_TOKEN = data.csrf;
-            });
-        }
-
         var companies = {content: null};
-        $http.get('http://ancient-beach-1323.herokuapp.com/webservice/companies').success(function (data) {
+        $http.get(baseUrl + '/companies').success(function (data) {
             companies.content = data;
         });
         return companies;
     }]);
 
-//Factory using $resource
+
 companyCatServices.factory("CompanyFactory", ['$http', '$location',
     function ($http, $location) {
-        var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/companies';
         var CSRF_TOKEN = '';
 
         function configureCSRF() {
-            $http.get('http://ancient-beach-1323.herokuapp.com/webservice/csrf_token').success(function (data, textStatus, jqXHR) {
+            $http.get(baseUrl + '/csrf_token').success(function (data, textStatus, jqXHR) {
                 CSRF_TOKEN = data.csrf;
             });
         }
@@ -41,7 +33,7 @@ companyCatServices.factory("CompanyFactory", ['$http', '$location',
                     return;
                 }
                 var company = {content: null};
-                $http({method: 'get', url: baseUrl + '/' + companyID, cache: false})
+                $http({method: 'get', url: baseUrl + '/companies/' + companyID, cache: false})
                     .success(function (data, status, headers, config) {
                         company.content = data;
 
@@ -54,10 +46,9 @@ companyCatServices.factory("CompanyFactory", ['$http', '$location',
 
                 if (id === undefined) {
                     //POST
-                    var url = baseUrl;
                     var postData = JSON.stringify(company) + '&authenticity_token=' + CSRF_TOKEN;
                     return $http({
-                        url: baseUrl,
+                        url: baseUrl + '/companies',
                         method: "POST",
                         data: postData,
                         headers: {
@@ -71,7 +62,7 @@ companyCatServices.factory("CompanyFactory", ['$http', '$location',
                 } else {
                     //PUT
                     var putData = JSON.stringify(company) + '&authenticity_token=' + CSRF_TOKEN;
-                    var url = baseUrl + '/' + id;
+                    var url = baseUrl + '/companies/' + id;
                     return $http.put(url, putData)
                         .success(function (data, status, headers, config) {
                         })
@@ -81,11 +72,11 @@ companyCatServices.factory("CompanyFactory", ['$http', '$location',
 
             },
             query: function () {
-                return $http.get(baseUrl);
+                return $http.get(baseUrl + '/companies');
             },
             delete: function (companyID) {
                 configureCSRF();
-                return $http.delete(baseUrl + '/' + companyID)
+                return $http.delete(baseUrl + '/companies/' + companyID)
                     .success(function (data, status, headers, config) {
                     })
                     .error(function (data, status, headers, config) {
@@ -94,16 +85,42 @@ companyCatServices.factory("CompanyFactory", ['$http', '$location',
         };
     }]);
 
-//A factory using $resource
-companyCatServices.factory("DirectorFactory", function ($resource) {
 
-    return $resource(
-        "http://ancient-beach-1323.herokuapp.com/webservice/directors/:id",
-        ['id', '@id' ],
-        [
-            "update", {method: "PUT"},
-            "get", {'method': 'GET', 'params': {'id': "@id"}, isArray: true}
+companyCatServices.factory('DirectorFactory', ['$http',
+    function ($http) {
+        return {
+            get: function (directorID) {
+                if (directorID === undefined) {
+                    return;
+                }
+                var director = {content: null};
+                $http({method: 'get', url: baseUrl + '/directors/' + directorID, cache: false})
+                    .success(function (data, status, headers, config) {
+                        director.content = data;
 
-        ]
-    );
-});
+                    }).error(function (data, status, headers, config) {
+                        // Handle the error
+                    });
+                return director;
+            },
+            delete: function (directorID) {
+                return $http.delete(baseUrl + '/directors/' + directorID)
+                    .success(function (data, status, headers, config) {
+                    })
+                    .error(function (data, status, headers, config) {
+                    });
+            },
+            save: function (director) {
+                //POST
+                return $http({
+                    url: baseUrl + '/directors',
+                    method: "POST",
+                    data: director
+                }).success(function (data, status, headers, config) {
+                    })
+                    .error(function (data, status, headers, config) {
+                    });
+            }
+        }
+    }]);
+

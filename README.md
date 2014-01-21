@@ -14,8 +14,9 @@ Implemented POST, PUT and DELETE methods.
 
 Implemented file upload (POST).
 
-TODO: Receive a response from the server after file upload and display a success message and/or redirect.
+Implemented POST and DELETE methods for directors.
+
+TODO:Display the upload successful message based on the server's response.
 TODO: Validate forms properly. 
-TODO: Director Create and Delete functionality (at least).
 
 You can access the application here: http://monaco-ancient-beach.herokuapp.com/app/index.html

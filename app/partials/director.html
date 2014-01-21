@@ -1,15 +1,13 @@
-<div class="container-fluid">
+<div class="container-fluid" ng-model="theDirector">
     <div class="modal-header">
-        <h2>{{theDirector.forename}}&nbsp;{{theDirector.surname}}</h2>
+        <h2>{{theDirector.content.forename}}&nbsp;{{theDirector.content.surname}}</h2>
 
         <p>
-            <a href='#/companies/{{theDirector.company_id}}'>Company</a>
+            <a href='#/companies/{{theDirector.content.company_id}}'>Company</a>
     </div>
             {{uploadedFiles.file}}<br>
         </span>
     <div class="modal-body" id="uploaderContainer" ng-hide ="uploaded">
-        <!-- We will define uploadFinished in MainCtrl and attach
-        it to the scope, so that it is available here -->
         <span><h5>Upload passport PDF:</h5></span>
         <div class="fileUpload btn btn-primary">
             <span>Upload</span>

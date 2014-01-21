@@ -1,25 +1,75 @@
 <div class="container-fluid">
-    <div class="modal-body">
+    <div class="modal-header" ng-model="theCompany">
         <h2>{{theCompany.content.name}}</h2>
-
+    </div>
+    <div class="modal-body">
         <p>
-        <h4>Address: {{theCompany.content.address}}</h4><br>
-        <h4>City: {{theCompany.content.city}}</h4><br>
-        <h4>Country: {{theCompany.content.country}}</h4><br>
-        <h4>Telephone: {{theCompany.content.phone}}</h4><br>
-        <h4>E-mail: {{theCompany.content.email}}</h4>
+        <p>Address: {{theCompany.content.address}}</p>
+        <span class="pull-right">
+
+                <button class="btn" ng-click="showForm()" data-toggle="modal">
+                    Add Director
+                </button>
+
+            </span>
+        <p>City: {{theCompany.content.city}}</p>
+        <p>Country: {{theCompany.content.country}}</p>
+        <p>Telephone: {{theCompany.content.phone}}</p>
+        <p>E-mail: {{theCompany.content.email}}</p>
 
         <br>
 
         <div class="popover-content">
             <p>
+
             <h3>Directors:</h3>
-            </p>
-            <li ng-repeat="director in theCompany.content.directors">
-                <h4><a href="#/directors/{{director.id}}">
-                    {{director.forename}}&nbsp;{{director.surname}}
-                </a></h4>
-            </li>
+
+            </p><br>
+            <div id="enterNew" ng-hide="hideForm">
+                <form id="form" name="form" ng-model="newDirector">
+                    <table>
+                        <tr>
+                            <td>
+                                <label>Forename: </label>
+                            </td>
+                            <td>
+                                <input type='text' ng-model="newDirector.forename" required/>
+                                <span class="error" ng-show="form.forename.$error.required">Required!</span>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <label>Surname: </label></td>
+                            <td>
+                                <input type='text' ng-model="newDirector.surname" required/>
+                                <span class="error" ng-show="form.surname.$error.required">Required!</span>
+                            </td>
+                            <td>
+                                &nbsp;
+                            </td>
+                            <td style="vertical-align: top">
+                                <button class="btn" ng-click="addDirector(newDirector)" data-toggle="modal">
+                                    Submit
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+
+                </form>
+            </div>
+            <table class="table table-hover stripped">
+                <tr ng-repeat="director in theCompany.content.directors">
+                    <td style="vertical-align: top">
+                        <a href="#/directors/{{director.id}}">
+                            {{director.forename}}&nbsp;{{director.surname}}
+                        </a><br>
+                    </td>
+                    <td>
+                        <button ng-click="deleteDirector(director)" role='button' class='btn'>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>
