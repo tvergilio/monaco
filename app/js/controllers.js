@@ -47,8 +47,8 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
                     var index = $scope.companies.content.indexOf(company);
                     $scope.companies.content.splice(index, 1);
                     //TODO: need to implement proper validation and check for value change against scope before save
-                    company['name']=$scope.theCompany.content.name;
-                    company['id']=$scope.theCompany.content.id;
+                    company['name'] = $scope.theCompany.content.name;
+                    company['id'] = $scope.theCompany.content.id;
                     $scope.companies.content.push(company);
                     $location.path('/');
 
@@ -65,16 +65,22 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
 //Gets a specific director, uploads a file
 companyCatControllers.controller('DirectorController', ['$scope', '$routeParams', '$location', 'DirectorFactory',
     function ($scope, $routeParams, $location, DirectorFactory) {
+        $scope.uploaded = false;
         var theId = $routeParams.directorID;
+        $scope.uploadedFiles = {file: null};
+        $scope.$watch('files', function (newValue, oldValue) {
+            if (newValue != undefined) {
+                $scope.uploadedFiles.file = "File " + newValue.substr(newValue.lastIndexOf("\\") + 1) + " has been uploaded.";
+                $scope.uploaded = true;
+            }
+        });
+
         $scope.theDirector = DirectorFactory.get(
             {
                 id: theId
             }
         );
-        $scope.uploadFinished = function (e, data) {
-            alert("Your file has been uploaded :D");
-            $location.path('#/directors/{{director.id}}');
-        };
+
 
     }]);
 

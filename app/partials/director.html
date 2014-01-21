@@ -5,17 +5,16 @@
         <p>
             <a href='#/companies/{{theDirector.company_id}}'>Company</a>
     </div>
-    <script src="lib/jQuery-File-Upload-9.5.2/js/vendor/jquery.ui.widget.js"></script>
-    <script src="lib/jQuery-File-Upload-9.5.2/js/jquery.iframe-transport.js"></script>
-    <script src="lib/jQuery-File-Upload-9.5.2/js/jquery.fileupload.js"></script>
-
-    <div class="modal-body">
+            {{uploadedFiles.file}}<br>
+        </span>
+    <div class="modal-body" id="uploaderContainer" ng-hide ="uploaded">
         <!-- We will define uploadFinished in MainCtrl and attach
         it to the scope, so that it is available here -->
         <span><h5>Upload passport PDF:</h5></span>
         <div class="fileUpload btn btn-primary">
             <span>Upload</span>
             <input id="testUpload"
+                   ng-model="files"
                    type="file"
                    class="upload"
                    fileupload

@@ -4,15 +4,15 @@
 
 var companyCatDirectives = angular.module('companyCatDirectives', []);
 
-companyCatDirectives.directive('fileupload', function() {
+companyCatDirectives.directive('fileupload', [function() {
         return {
             restrict: 'A',
             scope: {
                 done: '&',
                 progress: '&'
             },
-            link: function(scope, element, attrs) {
-                var today = new Date();
+            controller: 'DirectorController',
+            link: function(scope, element, attrs, ctrl) {
                 var optionsObj = {
                     dataType: 'json'
                 };
@@ -33,4 +33,13 @@ companyCatDirectives.directive('fileupload', function() {
                 element.fileupload(optionsObj);
             }
         };
-    });
+    }]);
+
+companyCatDirectives.directive('uploadToggle', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            angular.element(element).hide();
+        }
+    };
+});
