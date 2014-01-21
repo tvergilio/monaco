@@ -6,7 +6,8 @@ var companyCatApp = angular.module('companyCatApp', [
     'ngRoute',
     'companyCatControllers',
     'companyCatFilters',
-    'companyCatServices'
+    'companyCatServices',
+    'companyCatDirectives'
 ]);
 
 companyCatApp.config(['$routeProvider',

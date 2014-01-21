@@ -32,7 +32,9 @@
                         <td style="vertical-align: top">
                             Directors:<br>
                                 <span ng-repeat="director in company.directors">
+                                    <a href="#/directors/{{director.id}}">
                                     {{director.forename}} {{director.surname}}<br>
+                                    </a>
                                 </span>
                         </td>
                         <td>

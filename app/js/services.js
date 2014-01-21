@@ -94,7 +94,7 @@ companyCatServices.factory("CompanyFactory", ['$http', '$location',
         };
     }]);
 
-//Another factory using $resource
+//A factory using $resource
 companyCatServices.factory("DirectorFactory", function ($resource) {
 
     return $resource(

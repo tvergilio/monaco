@@ -4,7 +4,7 @@
 
 var companyCatControllers = angular.module('companyCatControllers', []);
 
-//Gets the list of all companies
+//Puts a list of all companies in the scope, deletes a company
 companyCatControllers.controller('CompanyListController', ['$scope', 'DataFactory', '$route', '$location', 'CompanyFactory',
     function ($scope, DataFactory, $route, $location, CompanyFactory) {
         function init() {
@@ -15,7 +15,6 @@ companyCatControllers.controller('CompanyListController', ['$scope', 'DataFactor
 
         $scope.deleteCompany = function (company) {
             var companyID = company.id;
-            alert(companyID);
             CompanyFactory.delete(companyID).success(function (data, status, headers, config) {
                 var index = $scope.companies.content.indexOf(company);
                 $scope.companies.content.splice(index, 1);
@@ -25,7 +24,7 @@ companyCatControllers.controller('CompanyListController', ['$scope', 'DataFactor
 
     }]);
 
-//Gets a specific company
+//Puts a specific company in the scope, posts a new company, updates an existing company
 companyCatControllers.controller('CompanyController', ['$scope', '$routeParams', '$location', 'CompanyFactory', 'DataFactory',
     function ($scope, $routeParams, $location, CompanyFactory, DataFactory) {
 
@@ -63,15 +62,20 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
 
     }]);
 
-//Gets a specific director
-companyCatControllers.controller('DirectorController', ['$scope', '$routeParams', 'DirectorFactory',
-    function ($scope, $routeParams, DirectorFactory) {
+//Gets a specific director, uploads a file
+companyCatControllers.controller('DirectorController', ['$scope', '$routeParams', '$location', 'DirectorFactory',
+    function ($scope, $routeParams, $location, DirectorFactory) {
         var theId = $routeParams.directorID;
         $scope.theDirector = DirectorFactory.get(
             {
                 id: theId
             }
         );
+        $scope.uploadFinished = function (e, data) {
+            alert("Your file has been uploaded :D");
+            $location.path('#/directors/{{director.id}}');
+        };
 
     }]);
+
 
