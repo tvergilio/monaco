@@ -3,18 +3,8 @@
 /* Services */
 
 var companyCatServices = angular.module('companyCatServices', ['ngResource']);
-var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/';
-    //'http://localhost:3000/webservice';
-
-companyCatServices.factory('DataFactory', ['$http',
-    function ($http) {
-        var companies = {content: null};
-        $http.get(baseUrl + '/companies').success(function (data) {
-            companies.content = data;
-        });
-        return companies;
-    }]);
-
+var baseUrl = 'http://localhost:3000/webservice';
+  //  'http://ancient-beach-1323.herokuapp.com/webservice/';
 
 companyCatServices.factory("CompanyFactory", ['$http', '$location',
     function ($http, $location) {
@@ -72,7 +62,11 @@ companyCatServices.factory("CompanyFactory", ['$http', '$location',
 
             },
             query: function () {
-                return $http.get(baseUrl + '/companies');
+                var companies = {content: null};
+                $http.get(baseUrl + '/companies').success(function (data) {
+                    companies.content = data;
+                });
+                return companies;
             },
             delete: function (companyID) {
                 configureCSRF();

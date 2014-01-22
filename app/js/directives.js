@@ -11,13 +11,12 @@ companyCatDirectives.directive('fileupload', [function() {
                 done: '&',
                 progress: '&'
             },
-            controller: 'DirectorController',
             link: function(scope, element, attrs, ctrl) {
                 var optionsObj = {
                     dataType: 'json'
                 };
                 if (scope.done) {
-                    optionsObj.done = function() {
+                    optionsObj.success = function() {
                         scope.$apply(function() {
                             scope.done({e: e, data: data});
                         });

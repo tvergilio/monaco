@@ -18,7 +18,7 @@
             <!--Body content-->
             <ul class="companies">
                 <table class="table table-hover stripped">
-                    <tr ng-repeat="company in companies.content | filter:query | orderBy:orderProp">
+                    <tr ng-repeat="company in data.companies.content | filter:query | orderBy:orderProp">
                         <td style="vertical-align: top">
                             <a href="#/companies/{{company.id}}">
                                 {{company.name}}

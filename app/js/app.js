@@ -4,27 +4,30 @@
 // Declare app level module which depends on filters, and services
 var companyCatApp = angular.module('companyCatApp', [
     'ngRoute',
+    'companyCatDirectives',
     'companyCatControllers',
     'companyCatFilters',
-    'companyCatServices',
-    'companyCatDirectives'
+    'companyCatServices'
 ]);
 
 companyCatApp.config(['$routeProvider',
     function ($routeProvider) {
         $routeProvider.
             when('/', {
-                templateUrl: 'partials/company-list.html',
-                controller: 'CompanyListController'}).
+                templateUrl: 'partials/company-list.html'
+//                ,controller: 'CompanyListController'
+            }).
             when('/companies/:companyID', {
-                templateUrl: 'partials/company-detail.html',
-                controller: 'CompanyController'}).
+                templateUrl: 'partials/company-detail.html'
+//                ,controller: 'CompanyController'
+            }).
             when('/directors/:directorID', {
-                templateUrl: 'partials/director.html',
-                controller: 'DirectorController'}).
+                templateUrl: 'partials/director.html', controller: 'DirectorController'
+            }).
             when('/edit/:companyID', {
-                templateUrl: 'partials/company-update-form.html',
-                controller: 'CompanyController'}).
+                templateUrl: 'partials/company-update-form.html'
+//                ,controller: 'CompanyController'
+            }).
             when('/companyForm', {
                 templateUrl: 'partials/companyForm.html',
                 controller: 'CompanyController'}).

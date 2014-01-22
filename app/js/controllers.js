@@ -5,10 +5,11 @@
 var companyCatControllers = angular.module('companyCatControllers', []);
 
 //Puts a list of all companies in the scope, deletes a company
-companyCatControllers.controller('CompanyListController', ['$scope', 'DataFactory', '$route', '$location', 'CompanyFactory',
-    function ($scope, DataFactory, $route, $location, CompanyFactory) {
+companyCatControllers.controller('CompanyListController', ['$scope', '$route', '$location', 'CompanyFactory',
+    function ($scope, $route, $location, CompanyFactory) {
         function init() {
-            $scope.companies = DataFactory;
+            $scope.data = {};
+            $scope.data.companies = CompanyFactory.query();
         }
 
         init();
@@ -16,30 +17,27 @@ companyCatControllers.controller('CompanyListController', ['$scope', 'DataFactor
         $scope.deleteCompany = function (company) {
             var companyID = company.id;
             CompanyFactory.delete(companyID).success(function (data, status, headers, config) {
-                var index = $scope.companies.content.indexOf(company);
-                $scope.companies.content.splice(index, 1);
+                var index = $scope.data.companies.content.indexOf(company);
+                $scope.data.companies.content.splice(index, 1);
 
             })
         };
         $scope.$watch('companies', function (newValue, oldValue) {
             if (newValue != undefined) {
-                $scope.companies = newValue;
+                $scope.data.companies = newValue;
             }
         }, true);
 
-        $scope.$on('companyChanged', function(event, newCompany, oldCompany) {
-            var index = $scope.companies.content.indexOf(oldCompany);
-            $scope.companies.content.splice(index, 1);
-            $scope.companies.content.push(newCompany);
+        $scope.$on('companyChanged', function (event, newValue, oldValue) {
+                $scope.data.companies = CompanyFactory.query();
         });
 
     }]);
 
 //Puts a specific company in the scope, posts a new company, updates an existing company
-companyCatControllers.controller('CompanyController', ['$scope', '$routeParams', '$location', 'CompanyFactory', 'DataFactory', 'DirectorFactory',
-    function ($scope, $routeParams, $location, CompanyFactory, DataFactory, DirectorFactory) {
+companyCatControllers.controller('CompanyController', ['$scope', '$routeParams', '$location', 'CompanyFactory', 'DirectorFactory',
+    function ($scope, $routeParams, $location, CompanyFactory, DirectorFactory) {
         var theId;
-        $scope.companies = DataFactory;
         $scope.hideForm = true;
         function init() {
             theId = $routeParams.companyID;
@@ -54,17 +52,15 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
                 if (theId > 1) {
                     //update
                     var theCompany = CompanyFactory.get(theId);
-                    var index = $scope.companies.content.indexOf(company);
-                    $scope.companies.content.splice(index, 1);
                     //TODO: need to implement proper validation and default to existing value if none is entered
                     company['name'] = $scope.theCompany.content.name;
                     company['id'] = $scope.theCompany.content.id;
-                    $scope.companies.content.push(company);
+                    $scope.$emit('companyChanged', company, $scope.theCompany);
                     $location.path('/');
 
                 } else {
                     //new
-                    $scope.companies.content.push(data);
+                    $scope.data.companies.content.push(data);
                     $location.path('/');
                 }
             })
@@ -101,19 +97,23 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
 //Gets a specific director, uploads a file
 companyCatControllers.controller('DirectorController', ['$scope', '$routeParams', '$location', 'DirectorFactory',
     function ($scope, $routeParams, $location, DirectorFactory) {
-        $scope.uploaded = false;
+        $scope.submitted = false;
         var theId = $routeParams.directorID;
         $scope.uploadedFiles = {file: null};
         $scope.$watch('files', function (newValue, oldValue) {
             if (newValue != undefined) {
-                $scope.uploadedFiles.file = "File " + newValue.substr(newValue.lastIndexOf("\\") + 1) + " has been uploaded.";
-                $scope.uploaded = true;
+                $scope.uploadedFiles.file = "File " + newValue.substr(newValue.lastIndexOf("\\") + 1) + " submitted.";
+                $scope.submitted = true;
             }
         });
 
         $scope.theDirector = DirectorFactory.get(theId);
 
+        $scope.uploadFinished = function(e, data) {
+            alert('Your file has been uploaded successfully.');
+        };
 
     }]);
+
 
 

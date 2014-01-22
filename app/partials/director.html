@@ -7,7 +7,7 @@
     </div>
             {{uploadedFiles.file}}<br>
         </span>
-    <div class="modal-body" id="uploaderContainer" ng-hide ="uploaded">
+    <div class="modal-body" id="uploaderContainer" ng-hide ="submitted">
         <span><h5>Upload passport PDF:</h5></span>
         <div class="fileUpload btn btn-primary">
             <span>Upload</span>
@@ -17,8 +17,7 @@
                    class="upload"
                    fileupload
                    name="files[]"
-                   data-url='http://ancient-beach-1323.herokuapp.com/webservice/upload/'
-                   multiple
+                   data-url='http://localhost:3000/webservice/upload/'
                    done="uploadFinished(e, data)" >
         </div>
     </div>
