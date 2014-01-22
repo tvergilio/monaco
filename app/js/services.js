@@ -3,8 +3,8 @@
 /* Services */
 
 var companyCatServices = angular.module('companyCatServices', ['ngResource']);
-var baseUrl = 'http://localhost:3000/webservice';
-  //  'http://ancient-beach-1323.herokuapp.com/webservice/';
+var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/';
+  //  'http://localhost:8000/webservice/';
 
 companyCatServices.factory("CompanyFactory", ['$http', '$location',
     function ($http, $location) {
