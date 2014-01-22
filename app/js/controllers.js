@@ -25,6 +25,12 @@ companyCatControllers.controller('CompanyListController', ['$scope', 'DataFactor
             if (newValue != undefined) {
                 $scope.companies = newValue;
             }
+        }, true);
+
+        $scope.$on('companyChanged', function(event, newCompany, oldCompany) {
+            var index = $scope.companies.content.indexOf(oldCompany);
+            $scope.companies.content.splice(index, 1);
+            $scope.companies.content.push(newCompany);
         });
 
     }]);
@@ -74,11 +80,9 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
         $scope.$watch('theCompany', function (newValue, oldValue) {
             if (newValue != undefined) {
                 $scope.theCompany = newValue;
-                var index = $scope.companies.content.indexOf(newValue);
-                $scope.companies.content.splice(index, 1);
-                $scope.companies.content.push(newValue)
+                $scope.$emit('companyChanged', newValue, oldValue);
             }
-        });
+        }, true);
         $scope.showForm = function () {
             $scope.hideForm = false;
         }
