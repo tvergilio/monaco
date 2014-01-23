@@ -3,8 +3,8 @@
 /* Services */
 
 var companyCatServices = angular.module('companyCatServices', ['ngResource']);
-var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/';
-  //  'http://localhost:8000/webservice/';
+var baseUrl = 'http://ancient-beach-1323.herokuapp.com/webservice';
+//  'http://localhost:3000/webservice';
 
 companyCatServices.factory("CompanyFactory", ['$http', '$location',
     function ($http, $location) {
@@ -118,3 +118,17 @@ companyCatServices.factory('DirectorFactory', ['$http',
         }
     }]);
 
+companyCatServices.service('$fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function (file, uploadUrl) {
+        var fd = new FormData();
+        fd.append('file', file);
+        return $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).success(function (data, status, headers, config) {
+
+            })
+            .error(function (data, status, headers, config) {
+            });
+    }
+}]);

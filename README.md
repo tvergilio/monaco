@@ -12,7 +12,7 @@ Implemented partial templates, controllers and factories.
 
 Implemented POST, PUT and DELETE methods.
 
-Implemented file upload (POST).
+Implemented file upload (POST), now showing a list of posted documents.
 
 Implemented POST and DELETE methods for directors.
 

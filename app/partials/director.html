@@ -1,24 +1,57 @@
-<div class="container-fluid" ng-model="theDirector">
+<div class="container-fluid" ng-model="theDirector" ng-controller="DirectorController">
     <div class="modal-header">
         <h2>{{theDirector.content.forename}}&nbsp;{{theDirector.content.surname}}</h2>
 
         <p>
             <a href='#/companies/{{theDirector.content.company_id}}'>Company</a>
+        </p>
     </div>
-            {{uploadedFiles.file}}<br>
-        </span>
-    <div class="modal-body" id="uploaderContainer" ng-hide ="submitted">
-        <span><h5>Upload passport PDF:</h5></span>
-        <div class="fileUpload btn btn-primary">
-            <span>Upload</span>
-            <input id="testUpload"
-                   ng-model="files"
-                   type="file"
-                   class="upload"
-                   fileupload
-                   name="files[]"
-                   data-url='http://ancient-beach-1323.herokuapp.com/webservice/upload'
-                   done="uploadFinished(e, data)" >
+
+
+    <table class="table table-hover stripped">
+        <tr class="navbar nav-header">
+        <td>
+            <div>
+            <h3><em> Uploaded Files:</em></h3>
+            </div>
+        </td>
+        <td colspan="6">
+            Search: <input ng-model="fileQuery">
+            Sort by:
+            <select ng-model="fileOrderProp">
+                <option value="name">Alphabetical</option>
+                <option value="-created_at">Recent</option>
+            </select>
+        </td>
+
+        </tr>
+        <tr ng-repeat="document in theDirector.content.documents | filter:fileQuery | orderBy:fileOrderProp">
+            <td>
+                {{document.name|truncate:true:45:' ...'}}
+            </td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>
+                Uploaded:&nbsp;&nbsp;{{document.created_at|date:'dd MMM yyyy   HH:mm'}}
+            </td>
+            <td>
+                &nbsp;
+            </td>
+
+        </tr>
+    </table>
+
+
+    <div class="modal-body" id="uploaderContainer">
+        <span><h5>Upload document PDF:</h5></span>
+
+        <input type="file" file-model="myFile"/>
+        <div class="pull-right">
+            <button class="btn btn-primary" ng-click="uploadFile()">Upload</button>
         </div>
     </div>
+</div>
 </div>

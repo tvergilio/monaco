@@ -29,7 +29,7 @@ companyCatControllers.controller('CompanyListController', ['$scope', '$route', '
         }, true);
 
         $scope.$on('companyChanged', function (event, newValue, oldValue) {
-                $scope.data.companies = CompanyFactory.query();
+            $scope.data.companies = CompanyFactory.query();
         });
 
     }]);
@@ -95,24 +95,25 @@ companyCatControllers.controller('CompanyController', ['$scope', '$routeParams',
     }]);
 
 //Gets a specific director, uploads a file
-companyCatControllers.controller('DirectorController', ['$scope', '$routeParams', '$location', 'DirectorFactory',
-    function ($scope, $routeParams, $location, DirectorFactory) {
-        $scope.submitted = false;
+companyCatControllers.controller('DirectorController', ['$scope', '$routeParams', '$location', '$fileUpload', 'DirectorFactory',
+    function ($scope, $routeParams, $location, $fileUpload, DirectorFactory) {
         var theId = $routeParams.directorID;
         $scope.uploadedFiles = {file: null};
         $scope.$watch('files', function (newValue, oldValue) {
             if (newValue != undefined) {
                 $scope.uploadedFiles.file = "File " + newValue.substr(newValue.lastIndexOf("\\") + 1) + " submitted.";
-                $scope.submitted = true;
             }
         });
 
         $scope.theDirector = DirectorFactory.get(theId);
-
-        $scope.uploadFinished = function(e, data) {
-            alert('Your file has been uploaded successfully.');
+        $scope.uploadFile = function () {
+            var file = $scope.myFile;
+            console.log('file is ' + JSON.stringify(file));
+            var uploadUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/directors/' + theId + '/document';
+            $fileUpload.uploadFileToUrl(file, uploadUrl).success(function (data, status, headers, config) {
+                window.location.reload();
+            })
         };
-
     }]);
 
 

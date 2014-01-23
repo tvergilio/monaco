@@ -22,7 +22,8 @@ companyCatApp.config(['$routeProvider',
 //                ,controller: 'CompanyController'
             }).
             when('/directors/:directorID', {
-                templateUrl: 'partials/director.html', controller: 'DirectorController'
+                templateUrl: 'partials/director.html'
+                //, controller: 'DirectorController'
             }).
             when('/edit/:companyID', {
                 templateUrl: 'partials/company-update-form.html'
