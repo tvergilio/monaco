@@ -108,10 +108,9 @@ companyCatControllers.controller('DirectorController', ['$scope', '$routeParams'
         $scope.theDirector = DirectorFactory.get(theId);
         $scope.uploadFile = function () {
             var file = $scope.myFile;
-            console.log('file is ' + JSON.stringify(file));
             var uploadUrl = 'http://ancient-beach-1323.herokuapp.com/webservice/directors/' + theId + '/document';
             $fileUpload.uploadFileToUrl(file, uploadUrl).success(function (data, status, headers, config) {
-                window.location.reload();
+                $scope.theDirector.content.documents.push(data);
             })
         };
     }]);
